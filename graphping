@@ -181,6 +181,10 @@ class App:
                         sry[t]['min'] = float(m.group(3))
                         sry[t]['avg'] = float(m.group(4))
                         sry[t]['max'] = float(m.group(5))
+		    m = re.match('([^ ]*)\s* : xmt/rcv/%loss = \d+/\d+/(\d+)%$', l)
+		    if m:
+			t = m.group(1)
+			sry[t]['loss'] = int(m.group(2))
 
                 if self.ping:
                     ret = self.ping.poll()
@@ -210,10 +214,10 @@ class App:
                         self.logger.info("Sending data for %s. ts=%d => %s" % (safe_target, ts,
                             datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')))
                         s.send("%s %d %d\n" % (m_loss, summary['loss'], ts))
-                        s.send("%s %.2f %d\n" % (m_median, self.median(rtt[target]), ts))
-                        s.send("%s %.2f %d\n" % (m_min, summary['min'], ts))
-                        s.send("%s %.2f %d\n" % (m_avg, summary['avg'], ts))
-                        s.send("%s %.2f %d\n" % (m_max, summary['max'], ts))
+                        if rtt[target]: s.send("%s %.2f %d\n" % (m_median, self.median(rtt[target]), ts))
+                        if summary['min']: s.send("%s %.2f %d\n" % (m_min, summary['min'], ts))
+                        if summary['avg']: s.send("%s %.2f %d\n" % (m_avg, summary['avg'], ts))
+                        if summary['max']: s.send("%s %.2f %d\n" % (m_max, summary['max'], ts))
                     except Exception:
                         self.logger.info("Could not send! Summary:")
                         self.logger.info(pformat(summary))
