@@ -36,6 +36,7 @@ from pprint import pprint, pformat
 
 # number of ping packets to send
 packets = 30
+sleep = 30;
 
 # Graphite
 g_host = 'localhost'
@@ -221,9 +222,7 @@ class App:
 
                 # Wait for the next minute
                 self.logger.info("Sleeping")
-                m0 = time.strftime('%M')
-                while time.strftime('%M') == m0 and not self.stop:
-                    time.sleep(3)
+                time.sleep(sleep)
 
             return
 
