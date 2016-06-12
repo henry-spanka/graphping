@@ -36,7 +36,7 @@ from pprint import pprint, pformat
 
 # number of ping packets to send
 packets = 30
-sleep = 30;
+sleep = 30
 
 # Graphite
 g_host = 'localhost'
