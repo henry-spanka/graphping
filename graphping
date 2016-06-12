@@ -35,16 +35,16 @@ import datetime
 from pprint import pprint, pformat
 
 # number of ping packets to send
-packets = 30
-sleep = 30
+packets = 3
+sleep = 5
 
 # Graphite
-g_host = 'localhost'
+g_host = 'firewall.rack.ffm.myvirtualserver.de'
 g_port = 2003
-g_prefix = 'ping'
+g_prefix = 'ping.probe-italy1-ac'
 
 # System
-fping = '/usr/sbin/fping'
+fping = '/usr/bin/fping'
 logfile = '/tmp/graphping.log'
 
 def handle_signal (sig, _frame):
